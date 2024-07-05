@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.proyecto2.dayleenm.samuelo.anao;
+package Hash;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -65,9 +65,43 @@ public class Funciones {
         return resumen;
         
     }
+    public String FrecuenciaClave(String palabra, ClaseResumen resumen){
+        int contador = 0;
+        String cuerpo = resumen.getCuerpo().replace(",", "");
+        cuerpo = cuerpo.replace(".", "");
+        cuerpo = cuerpo.replace(";", "");
+        cuerpo = cuerpo.replace(":", "");
+        String[] ResumenSeparado = cuerpo.split(" ");
+        String[] PalabraSeparada = palabra.split(" ");
+        int aux  = 0;
+        for (int i = 0; i<ResumenSeparado.length;i++){
+            boolean [] verdad = new boolean [PalabraSeparada.length];
+            if (PalabraSeparada[aux] == ResumenSeparado[i]){
+                verdad[aux] = true;
+                aux++;
+                while(aux<PalabraSeparada.length){
+                    if(PalabraSeparada[aux] == ResumenSeparado[i+aux]){
+                        verdad[aux] = true;
+                        aux++;
+                    }
+                    else{break;}
+                }
+                
+            }
+        if (verdad[verdad.length-1] == true){
+        contador++;
+        }
+        
+        
+        }
+        String completo = "La palabra (" + palabra + ") fue encontrada : " + Integer.toString(contador) + " veces.";
+        return completo;
+        }
+    
+    }
     
     
-}
+
 
 
      

@@ -9,11 +9,11 @@ package Hash;
  * @author samue
  */
 public class ClaseResumen {
-    String titulo;
-    String cuerpo;
-    String [] PalabrasClaves;
-    String [] autores;
-    ClaseResumen Next;
+    private String titulo;
+    private String cuerpo;
+    private PalabraClave [] PalabrasClaves;
+    private String [] autores;
+    private ClaseResumen Next;
 
     public ClaseResumen(String resumen) {
         this.Next = null;
@@ -67,11 +67,19 @@ public class ClaseResumen {
         }
         i++;
         }
+    
     cadena3 = cadena3.replace(".", "");
     String [] ArrayAux = cadena3.split(": ");
-    this.autores = ArrayAux[1].split(",");
+    String[] auxclave= ArrayAux[1].split(",");
+    this.PalabrasClaves = new PalabraClave[auxclave.length];
+    int indice = 0;
+    for (String palabraclave : auxclave){
+        this.PalabrasClaves[indice].setPalabra(palabraclave);
+        this.PalabrasClaves[indice].setPerteneciente(this);
+        indice++;
     }
-
+    
+    }
     public void setNext(ClaseResumen Next) {
         this.Next = Next;
     }
@@ -85,7 +93,11 @@ public class ClaseResumen {
     }
 
     public String[] getPalabrasClaves() {
-        return PalabrasClaves;
+        String[] palabrass = new String[this.PalabrasClaves.length];
+        for (int i = 0; i<palabrass.length; i++){
+            palabrass[i] = this.PalabrasClaves[i].getPalabra();
+        }
+        return palabrass;
     }
 
     public String[] getAutores() {
