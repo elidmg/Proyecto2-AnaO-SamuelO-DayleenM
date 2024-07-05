@@ -23,7 +23,7 @@ public class Funciones {
  * @return
  * @throws FileNotFoundException
  * @throws IOException 
- * @return Cadena String con todo lo que tiene el archivo
+ * @return
  */
     
 
@@ -52,20 +52,11 @@ public class Funciones {
     }
         return Cadena;
     }
-    
-    public String SeleccionarResumen(String historial) throws IOException{
-        String [] Historial= historial.split("\n");
+
+    public String SeleccionarResumen() throws IOException{
         String resumen = ReadDoc();
-        String []resumenPartes = resumen.split("\n");
-        for(int i= 0; i<Historial.length;i++){
-            String[] año= Historial[i].split(",");
-            if (resumenPartes [0] == año[0]){
-                return "";
-               
-            }
-        }   
-        return resumen;
         
+        return resumen;
     }
     
     public String SeleccionarHistorial() throws IOException{
