@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Hash;
+package Clases;
 
 /**
  *
@@ -13,7 +13,7 @@ public class PalabraClave {
     ClaseResumen perteneciente;
     PalabraClave next;
 
-    public PalabraClave() {
+    public PalabraClave(PalabraClave palabra) {
         this.palabra = null;
         this.perteneciente = null;
         this.next = null;
