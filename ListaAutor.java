@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clases;
+package Clase;
 
 /**
  *
@@ -23,16 +23,13 @@ public class ListaAutor {
     }
     
     public void insertarFinal(Autor autor){
-        Autor newNode = new Autor(autor);
         if(isEmpty()){
-            head = newNode;
+            this.head = autor;
+            this.last = autor;
         }
         else{
-            Autor nodo = head;
-            while(nodo.getNext() != null){
-                nodo = nodo.getNext();
-            }
-            nodo.setNext(newNode);
+            this.last.setNext(autor);
+            this.last = autor;
         }
         size++;
     }
@@ -41,26 +38,10 @@ public class ListaAutor {
         return head;
     }
 
-    public void setHead(Autor head) {
-        this.head = head;
-    }
-
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public Autor getLast() {
-        return last;
-    }
-
-    public void setLast(Autor last) {
-        this.last = last;
-    }
-    
     
     
     

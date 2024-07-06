@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clases;
+package Clase;
 
 /**
  *
@@ -23,43 +23,26 @@ public class ListaPC {
     }
     
     public void insertarFinal(PalabraClave palabra){
-        PalabraClave newNode = new PalabraClave(palabra);
         if(isEmpty()){
-            head = newNode;
+            this.head = palabra;
+            this.last = palabra;
         }
         else{
-            PalabraClave nodo = head;
-            while(nodo.getNext() != null){
-                nodo = nodo.getNext();
-            }
-            nodo.setNext(newNode);
+            this.last.setNext(palabra);
+            this.last = palabra;
         }
         size++;
-    }
-
-    public PalabraClave getHead() {
-        return head;
-    }
-
-    public void setHead(PalabraClave head) {
-        this.head = head;
     }
 
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public PalabraClave getHead() {
+        return head;
     }
 
-    public PalabraClave getLast() {
-        return last;
-    }
 
-    public void setLast(PalabraClave last) {
-        this.last = last;
-    }
     
     
     

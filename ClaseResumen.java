@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clases;
+package Clase;
 
 /**
  *
@@ -12,7 +12,7 @@ public class ClaseResumen {
     private String titulo;
     private String cuerpo;
     private PalabraClave [] PalabrasClaves;
-    private String [] autores;
+    private Autor [] autores;
     private ClaseResumen Next;
 
     public ClaseResumen(String resumen) {
@@ -43,7 +43,14 @@ public class ClaseResumen {
         }
         cadena2+=".";
         cadena2 = cadena2.replace(",.", "");
-        this.autores = cadena2.split(",");
+        String [] auxautores = cadena2.split(",");
+        this.autores = new Autor [auxautores.length];
+        int indice = 0;
+        for (String autor : auxautores){
+        this.autores[indice].setAutor(autor);
+        this.autores[indice].setPerteneciente(this);
+        indice++;
+        }
         i++;
         this.cuerpo = "";
         while(true){
@@ -72,11 +79,11 @@ public class ClaseResumen {
     String [] ArrayAux = cadena3.split(": ");
     String[] auxclave= ArrayAux[1].split(",");
     this.PalabrasClaves = new PalabraClave[auxclave.length];
-    int indice = 0;
+    int indice2 = 0;
     for (String palabraclave : auxclave){
-        this.PalabrasClaves[indice].setPalabra(palabraclave);
-        this.PalabrasClaves[indice].setPerteneciente(this);
-        indice++;
+        this.PalabrasClaves[indice2].setPalabra(palabraclave);
+        this.PalabrasClaves[indice2].setPerteneciente(this);
+        indice2++;
     }
     
     }
@@ -92,15 +99,12 @@ public class ClaseResumen {
         return cuerpo;
     }
 
-    public String[] getPalabrasClaves() {
-        String[] palabrass = new String[this.PalabrasClaves.length];
-        for (int i = 0; i<palabrass.length; i++){
-            palabrass[i] = this.PalabrasClaves[i].getPalabra();
-        }
-        return palabrass;
+    public PalabraClave [] getPalabrasClaves() {
+        
+        return this.PalabrasClaves;
     }
 
-    public String[] getAutores() {
+    public Autor[] getAutores() {
         return autores;
     }
 
