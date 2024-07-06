@@ -3,10 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
-
+//import Clases.*;
+import Clases.Funciones;
+import Clases.ClaseResumen;
+import Clases.HashTable;
+import Clases.Autor;
+import Clases.ListaAutor;
+import Clases.ListaPC;
+import Clases.ListaResumen;
+import Clases.PalabraClave;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,6 +26,10 @@ import javax.swing.JPanel;
  */
 public class Menu extends javax.swing.JFrame {
       Fondo fondo = new Fondo();
+       Funciones funcion = new Funciones();
+       ClaseResumen resumen;
+       HashTable tablas;
+      
      
     /**
      * Creates new form Menu
@@ -128,6 +143,26 @@ public class Menu extends javax.swing.JFrame {
 
     private void CargarDataBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDataBottonActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            
+            String cadena =  funcion.ReadDoc();
+           
+            resumen = new ClaseResumen(cadena);
+            
+            tablas = new HashTable();
+            tablas.agregarResumen(resumen);
+            tablas.agregarautor(resumen);
+            tablas.agregarPC(resumen);
+        
+            JOptionPane.showMessageDialog(this, "El resúmen ha sido cargada con exito", "Bien", JOptionPane.INFORMATION_MESSAGE);
+        }catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "El archivo no se encontró: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error al leer el archivo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
+    }     
     }//GEN-LAST:event_CargarDataBottonActionPerformed
 
     private void MostrarInvestigacionBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarInvestigacionBottonActionPerformed
