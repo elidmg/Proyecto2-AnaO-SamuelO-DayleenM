@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clase;
+package Clases;
 
 /**
  *
@@ -112,6 +112,18 @@ public class ListaResumen {
                 this.Size++;
 
         return true;
+    }
+
+    public ClaseResumen getFirst() {
+        return first;
+    }
+
+    public int getSize() {
+        return Size;
+    }
+
+    public ClaseResumen getLast() {
+        return last;
     }
     
 }

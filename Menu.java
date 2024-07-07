@@ -7,6 +7,7 @@ package Interfaz;
 import Clases.Funciones;
 import Clases.ClaseResumen;
 import Clases.HashTable;
+import Clases.GlobalClass;
 import Clases.Autor;
 import Clases.ListaAutor;
 import Clases.ListaPC;
@@ -29,12 +30,14 @@ public class Menu extends javax.swing.JFrame {
        Funciones funcion = new Funciones();
        ClaseResumen resumen;
        HashTable tablas;
-      
+       GlobalClass datos;
+      GlobalClass temp;
      
     /**
      * Creates new form Menu
      */
     public Menu() {
+        
         this.setContentPane(fondo);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -145,16 +148,20 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            
+          
             String cadena =  funcion.ReadDoc();
-           
-            resumen = new ClaseResumen(cadena);
+            this.tablas = new HashTable();
+            this.resumen = new ClaseResumen(cadena, this.tablas);
+            this.tablas.agregarResumen(this.resumen);
+            this.tablas.agregarPC(this.resumen);
             
-            tablas = new HashTable();
-            tablas.agregarResumen(resumen);
-            tablas.agregarautor(resumen);
-            tablas.agregarPC(resumen);
-        
+            /*
+            GlobalClass temp = new GlobalClass( new ClaseResumen(cadena), new HashTable());
+            temp.getTablas().agregarResumen(temp.getResumen());
+            temp.getTablas().agregarautor(temp.getResumen());
+            temp.getTablas().agregarPC(temp.getResumen());
+        */
+            
             JOptionPane.showMessageDialog(this, "El resúmen ha sido cargada con exito", "Bien", JOptionPane.INFORMATION_MESSAGE);
         }catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "El archivo no se encontró: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -167,22 +174,23 @@ public class Menu extends javax.swing.JFrame {
 
     private void MostrarInvestigacionBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarInvestigacionBottonActionPerformed
         // TODO add your handling code here:
-        SeleccionarInvestigacion vtna = new SeleccionarInvestigacion();
+        
+        SeleccionarInvestigacion vtna = new SeleccionarInvestigacion(this.tablas);
         vtna.show();
         this.dispose();
     }//GEN-LAST:event_MostrarInvestigacionBottonActionPerformed
 
     private void BuscarPCBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarPCBottonActionPerformed
         // TODO add your handling code here:
-        BuscarPC vtna = new BuscarPC();
-        vtna.show();
+        BuscarPC vtna1 = new BuscarPC(this.tablas);
+        vtna1.show();
         this.dispose();
     }//GEN-LAST:event_BuscarPCBottonActionPerformed
 
     private void BuscarAutorBottonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarAutorBottonActionPerformed
         // TODO add your handling code here:
-        BuscarAutor vtna = new BuscarAutor();
-        vtna.show();
+        BuscarAutor vtna2 = new BuscarAutor(this.tablas);
+        vtna2.show();
         this.dispose();
     }//GEN-LAST:event_BuscarAutorBottonActionPerformed
 
@@ -220,6 +228,7 @@ public class Menu extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Menu().setVisible(true);
             }

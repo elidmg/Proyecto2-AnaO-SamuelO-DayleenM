@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clase;
+package Clases;
 
 /**
  *
@@ -16,6 +16,7 @@ public class ListaAutor {
     public ListaAutor() {
         this.head = null;
         this.last = null;
+        this.size = 0;
     }
 
     public boolean isEmpty(){
@@ -34,12 +35,18 @@ public class ListaAutor {
         size++;
     }
 
+    
+    
     public Autor getHead() {
         return head;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public Autor getLast() {
+        return last;
     }
 
     

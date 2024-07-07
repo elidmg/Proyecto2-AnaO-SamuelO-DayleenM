@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clase;
+package Clases;
 
 /**
  *
@@ -40,6 +40,14 @@ public class ListaPC {
 
     public PalabraClave getHead() {
         return head;
+    }
+
+    public PalabraClave getLast() {
+        return last;
+    }
+
+    public void setLast(PalabraClave last) {
+        this.last = last;
     }
 
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clase;
+package Clases;
 
 /**
  *
@@ -10,12 +10,12 @@ package Clase;
  */
 public class Autor {
     String autor;
-    ClaseResumen perteneciente;
     Autor next;
+    ListaResumen perteneciente = new ListaResumen();
 
-    public Autor() {
-        this.autor = null;
-        this.perteneciente = null;
+    public Autor(String autorito) {
+        this.autor = autorito;
+        
         this.next = null;
     }
 
@@ -27,13 +27,15 @@ public class Autor {
         this.autor = autor;
     }
 
-    public ClaseResumen getPerteneciente() {
+    public ListaResumen getPerteneciente() {
         return perteneciente;
     }
 
-    public void setPerteneciente(ClaseResumen perteneciente) {
-        this.perteneciente = perteneciente;
+    public void AgregarPerteneciente(ClaseResumen perteneciente) {
+        this.perteneciente.Agregar(perteneciente);
     }
+
+   
 
     public Autor getNext() {
         return next;

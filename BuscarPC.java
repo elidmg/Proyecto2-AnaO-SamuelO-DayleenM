@@ -2,8 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Clase;
-
+package Interfaz;
+import Clases.Funciones;
+import Clases.ClaseResumen;
+import Clases.HashTable;
+import Clases.Autor;
+import Clases.ListaAutor;
+import Clases.ListaPC;
+import Clases.ListaResumen;
+import Clases.PalabraClave;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -16,8 +23,13 @@ import javax.swing.JPanel;
  */
 public class BuscarPC extends javax.swing.JFrame {
     Fondo fondo = new Fondo();
+    Funciones funcion = new Funciones();
+       ClaseResumen resumen;
+       HashTable tablasPC; 
+       PalabraClave[] encontradas;
 
-    public BuscarPC(){
+    public BuscarPC(HashTable tablaPC){
+        tablasPC = tablaPC;
         this.setContentPane(fondo);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -143,10 +155,26 @@ public class BuscarPC extends javax.swing.JFrame {
 
     private void FieldPCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldPCActionPerformed
         // TODO add your handling code here:
+        //lo que ingresa el usuario
     }//GEN-LAST:event_FieldPCActionPerformed
 
     private void MostrarDetBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDetBotonActionPerformed
         // TODO add your handling code here:
+         String numero = FieldDetalles.getText();
+        //validar entrada numero en el rango del arrey
+        String cadena = "";
+        cadena +="\n-TITULO: " + this.encontradas[Integer.parseInt(numero)-1].getPerteneciente().getTitulo() + " \n ";
+        cadena += "\n-AUTORES: ";
+        for(Autor autor:this.encontradas[Integer.parseInt(numero)-1].getPerteneciente().getAutores()){
+        cadena += autor.getAutor() + " \n ";
+        }
+        cadena +="\n-CUERPO DEL RESUMEN: "+ this.encontradas[Integer.parseInt(numero)-1].getPerteneciente().getCuerpo() + " \n ";
+        cadena += "\n-PALABRAS CLAVES: ";
+       for(PalabraClave claves: this.encontradas[Integer.parseInt(numero)-1].getPerteneciente().getPalabrasClaves()){
+        cadena += claves.getPalabra() + " \n ";
+        }
+       AreaDet.setText(cadena);
+        
     }//GEN-LAST:event_MostrarDetBotonActionPerformed
 
     private void FieldDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldDetallesActionPerformed
@@ -161,12 +189,37 @@ public class BuscarPC extends javax.swing.JFrame {
 
     private void BuscarPalabraBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarPalabraBotonActionPerformed
         // TODO add your handling code here:
+        //botto buscar palabra
+        String palabra = FieldPC.getText().toLowerCase();
+        //Validar que sea una letra, que no empiece espcios, numero, que no empiece con un caracter especial 
+        ListaPC encontrado=tablasPC.buscarPC(palabra);
+        String aux = "";
+        this.encontradas = new PalabraClave[encontrado.getSize()];
+        int contador = 1;
+        if(encontrado!= null){
+            PalabraClave primero = encontrado.getHead();
+            for(int h = 0 ; h<encontrado.getSize(); h++){
+            aux += Integer.toString(contador)+" - ";
+            aux += primero.getPerteneciente().getTitulo()+"\n";
+            this.encontradas[contador-1] = primero;
+            primero = primero.getNext();
+            
+        }
+        
+        }
+        if(aux!=""){
+            AreaInv.setText(aux);
+        }
+        else{
+            AreaInv.setText(" Ninguna investigación encontrada. ");
+        }
+        
     }//GEN-LAST:event_BuscarPalabraBotonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[], HashTable tablaPC) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -193,7 +246,7 @@ public class BuscarPC extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarPC().setVisible(true);
+                new BuscarPC(tablaPC).setVisible(true);
             }
         });
     }

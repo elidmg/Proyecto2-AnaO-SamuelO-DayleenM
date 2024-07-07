@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clase;
+package Clases;
 
 /**
  *
@@ -13,9 +13,9 @@ public class PalabraClave {
     ClaseResumen perteneciente;
     PalabraClave next;
 
-    public PalabraClave(PalabraClave palabra) {
-        this.palabra = null;
-        this.perteneciente = null;
+    public PalabraClave(String palabrita, ClaseResumen pertenece) {
+        this.palabra = palabrita;
+        this.perteneciente = pertenece;
         this.next = null;
     }
 

@@ -2,8 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Clase;
-
+package Interfaz;
+import Clases.Funciones;
+import Clases.ClaseResumen;
+import Clases.HashTable;
+import Clases.Autor;
+import Clases.ListaAutor;
+import Clases.ListaPC;
+import Clases.ListaResumen;
+import Clases.PalabraClave;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -15,17 +22,49 @@ import javax.swing.JPanel;
  */
 public class BuscarAutor extends javax.swing.JFrame {
     Fondo fondo = new Fondo();
-    
+    Funciones funcion = new Funciones();
+       ClaseResumen resumen;
+       HashTable tablaresumen; 
+    Autor[] autores;
+    ClaseResumen[] autorResumen;
     
    
-    public BuscarAutor(){
+    public BuscarAutor(HashTable tablitaautor){
+            tablaresumen = tablitaautor;
         this.setContentPane(fondo);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.autores = MostrarAutor();
+}
         
+    public Autor[] MostrarAutor(){  
         
+        int contador = 1;
+        String cadena = "";
+        Autor[] autorsitos = new Autor[this.tablaresumen.getSizeTablaAutor()];
+       for(ListaAutor lista: this.tablaresumen.getTablaAutor()){
+           if(lista != null){
+              Autor primero = lista.getHead();
+           for(int x  = 0; x <lista.getSize(); x++){
+            
+             cadena+=Integer.toString(contador )+ " - ";
+             
+               cadena +=  primero.getAutor() + "\n";
+               autorsitos[contador -1] = primero;
+               contador ++;
+               if(primero != lista.getLast()){
+                   primero = primero.getNext();
+                   
+               }
+            
+           }
+
+           }}
+       this.TextAreaAutor.setText(cadena);
+       return autorsitos;
     }
+    
 
 
     /**
@@ -37,7 +76,7 @@ public class BuscarAutor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        FieldAutor = new javax.swing.JTextField();
+        TextEntradaAutor = new javax.swing.JTextField();
         BuscarAutorBoton = new javax.swing.JButton();
         RegresarBoton = new javax.swing.JButton();
         DetallesField = new javax.swing.JTextField();
@@ -46,12 +85,14 @@ public class BuscarAutor extends javax.swing.JFrame {
         AreaInv = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         AreaDet = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TextAreaAutor = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        FieldAutor.addActionListener(new java.awt.event.ActionListener() {
+        TextEntradaAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FieldAutorActionPerformed(evt);
+                TextEntradaAutorActionPerformed(evt);
             }
         });
 
@@ -90,6 +131,10 @@ public class BuscarAutor extends javax.swing.JFrame {
         AreaDet.setRows(5);
         jScrollPane2.setViewportView(AreaDet);
 
+        TextAreaAutor.setColumns(20);
+        TextAreaAutor.setRows(5);
+        jScrollPane3.setViewportView(TextAreaAutor);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,29 +150,33 @@ public class BuscarAutor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(MostrarDetBoton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
+                        .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(FieldAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BuscarAutorBoton))
+                                .addComponent(TextEntradaAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BuscarAutorBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(FieldAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BuscarAutorBoton))
+                .addContainerGap(108, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(BuscarAutorBoton)
+                                .addComponent(TextEntradaAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DetallesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,19 +191,29 @@ public class BuscarAutor extends javax.swing.JFrame {
 
     private void BuscarAutorBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarAutorBotonActionPerformed
         // TODO add your handling code here:
+        String numero =TextEntradaAutor.getText(); //validar
+        String cadena = "";
+        int contador = 1;
+        for(Autor autor: this.autores){
+            cadena += contador + " - ";
+            cadena += 
+        }
+        
+        
     }//GEN-LAST:event_BuscarAutorBotonActionPerformed
 
-    private void FieldAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldAutorActionPerformed
+    private void TextEntradaAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextEntradaAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FieldAutorActionPerformed
+    }//GEN-LAST:event_TextEntradaAutorActionPerformed
 
     private void DetallesFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetallesFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DetallesFieldActionPerformed
 
     private void RegresarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarBotonActionPerformed
-         Menu vtna = new Menu();
+        Menu vtna = new Menu();
         vtna.show();
+        
         this.dispose();// TODO add your handling code here:// TODO add your handling code here:// TODO add your handling code here:
     }//GEN-LAST:event_RegresarBotonActionPerformed
 
@@ -165,7 +224,7 @@ public class BuscarAutor extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[], HashTable tablitaautor) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -192,15 +251,20 @@ public class BuscarAutor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarAutor().setVisible(true);
+                new BuscarAutor(tablitaautor).setVisible(true);
+                
+                
             }
         });
+        
     }
+    
+    
         class Fondo extends JPanel{
         private Image imagen;
         @Override
         public void paint(Graphics g){
-            imagen = new ImageIcon(getClass().getResource("/Imagen/Fondo5.png")).getImage();
+            imagen = new ImageIcon(getClass().getResource("/Imagen/Fondo8.png")).getImage();
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
@@ -212,11 +276,13 @@ public class BuscarAutor extends javax.swing.JFrame {
     private javax.swing.JTextArea AreaInv;
     private javax.swing.JButton BuscarAutorBoton;
     private javax.swing.JTextField DetallesField;
-    private javax.swing.JTextField FieldAutor;
     private javax.swing.JButton MostrarDetBoton;
     private javax.swing.JButton RegresarBoton;
+    private javax.swing.JTextArea TextAreaAutor;
+    private javax.swing.JTextField TextEntradaAutor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
 }
